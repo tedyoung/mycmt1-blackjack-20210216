@@ -50,4 +50,28 @@ public class Hand {
   Card firstCard() {
     return cards.get(0);
   }
+
+  boolean busted() {
+    return value() > 21;
+  }
+
+  boolean dealerShouldHit() {
+    return value() <= 16;
+  }
+
+  String displayValue() {
+    return " (" + value() + ")";
+  }
+
+  boolean pushes(Hand hand) {
+    return value() == hand.value();
+  }
+
+  boolean beats(Hand hand) {
+    return hand.value() < value();
+  }
+
+  public boolean valueEquals(int queryValue) {
+    return value() == queryValue;
+  }
 }
