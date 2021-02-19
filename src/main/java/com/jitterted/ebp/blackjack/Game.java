@@ -63,25 +63,26 @@ public class Game {
 
     displayFinalGameState();
 
-    determineOutcome(playerBusted);
+    GameOutcome gameOutcome = determineOutcome(playerBusted);
+    playerBalance += gameOutcome.payoffAmount(playerBetAmount);
   }
 
-  private void determineOutcome(boolean playerBusted) {
+  private GameOutcome determineOutcome(boolean playerBusted) {
     if (playerBusted) {
       System.out.println("You Busted, so you lose.  💸");
-      // playerLoses()
+      return GameOutcome.PLAYER_LOSES;
     } else if (dealerHand.busted()) {
       System.out.println("Dealer went BUST, Player wins! Yay for you!! 💵");
-      playerWins();
+      return GameOutcome.PLAYER_WINS;
     } else if (playerHand.beats(dealerHand)) {
       System.out.println("You beat the Dealer! 💵");
-      playerWins();
+      return GameOutcome.PLAYER_WINS;
     } else if (dealerHand.pushes(playerHand)) {
       System.out.println("Push: The house wins, you Lose. 💸");
-      // playerPushes()
+      return GameOutcome.PLAYER_PUSHES;
     } else {
-      // playerLoses()
       System.out.println("You lost to the Dealer. 💸");
+      return GameOutcome.PLAYER_LOSES;
     }
   }
 
@@ -176,5 +177,17 @@ public class Game {
 
   public void playerWins() {
     playerBalance += playerBetAmount * 2;
+  }
+
+  public void playerLoses() {
+    playerBalance += playerBetAmount * 0;
+  }
+
+  public void playerPushes() {
+    playerBalance += playerBetAmount * 1;
+  }
+
+  public void playerWinsBlackjack() {
+    playerBalance += playerBetAmount * 2.5;
   }
 }
