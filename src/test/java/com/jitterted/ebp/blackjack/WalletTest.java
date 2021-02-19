@@ -56,4 +56,14 @@ public class WalletTest {
         .isEqualTo(17 + 18);
   }
 
+  @Test
+  public void addMoneyOfLessThanZeroThrowsException() throws Exception {
+    Wallet wallet = new Wallet();
+
+    assertThatThrownBy(() -> {
+      wallet.addMoney(-1);
+    })
+      .isInstanceOf(IllegalArgumentException.class);
+  }
+
 }
